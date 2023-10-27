@@ -7,31 +7,28 @@ orderDetails.use(bodyParser.json());
 
 const trackingInformation = [
     {
-        orderNum: "123456",
-        trackingNumber: "JJD149990200055881941"
+        orderNum: "order123",
+        trackingNumber: "00340434292135100186"
     },
     {
-        orderNum: "9860022",
-        trackingNumber: "JJD149990200055881941"
+        orderNum: "234r34243",
+        trackingNumber: "00340434292135100186"
     },
     {
-        orderNum: "6876543",
-        trackingNumber: "JJD149990200055881941"
+        orderNum: "345455666",
+        trackingNumber: "00340434292135100186"
     }
 ]
 
-orderDetails.post('/track/:orderNum',async(req,res)=>{
-// orderDetails.post('/track/',async(req,res)=>{
-//     ordernum = req.body
+orderDetails.post('/track/:orderNumber',async(req,res)=>{
 
-    const {orderNum} = req.body;
-    if (!orderNum) {
-        return res.json({ error: 'Order number required.' });
-    }
-
-    const trackingInfo = trackingInformation.find(info => info.orderNum === orderNum);
+    const {orderNumber} = req.params;
+    console.log(orderNumber)
+    
+    const trackingInfo = trackingInformation.find(info => info.orderNum === orderNumber);
+    console.log(trackingInfo)
     if (!trackingInfo) {
-        return res.status(404).json({error: 'No tracking information found for the'});
+        return res.status(404).json({error: `No tracking information found for the ${orderNumber}`});
     }
 
     
